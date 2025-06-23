@@ -1,0 +1,23 @@
+body {
+    background-color: #373e98;
+    color: rgb(255, 255, 255);
+}
+
+h1 {
+    margin-top: -50px;
+    font-weight: 600;
+    font-size: 100px;
+}
+
+.container {
+    margin: 20px auto;
+    width: 1400px;
+}
+
+button {
+    background-color: #fee36e;
+    padding: 30px 20px;
+    border: none;
+    border-radius: 30%;
+    font-size: 30px;
+}

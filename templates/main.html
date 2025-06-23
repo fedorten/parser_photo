@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Parser</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        #modal img {
+            transition: transform 0.2s ease;
+            transform-origin: center;
+            cursor: zoom-out;
+        }
+
+        #modal img.zoomed {
+            cursor: grab;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 p-4">
+    <div class="max-w-6xl mx-auto">
+        <!-- Search Form -->
+        <div class="bg-white rounded-lg shadow p-6 mb-6">
+            <h1 class="text-2xl font-bold text-center mb-4">Image Parser</h1>
+            <form method="POST" class="flex gap-3">
+                <input type="url" name="url" placeholder="Enter website URL" required class="flex-1 p-2 border rounded"
+                    value="{{ request.form.url if request.method == 'POST' }}">
+                <input type="number" name="max_images" min="1" max="100" value="20" required
+                    class="w-20 p-2 border rounded">
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    Search
+                </button>
+            </form>
+        </div>
+
+        <!-- Results -->
+        {% if images %}
+        <div class="mb-4">Found: {{ images|length }} images</div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {% for image_url in images %}
+            <div class="bg-white rounded-lg shadow overflow-hidden cursor-pointer hover:shadow-lg transition"
+                onclick="openModal('{{ image_url }}')">
+                <img src="{{ image_url }}" alt="Preview"
+                    onerror="this.src='https://via.placeholder.com/300x200?text=Error'"
+                    class="w-full h-48 object-contain bg-gray-50">
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-10 text-gray-500">
+            {% if request.method == 'POST' %}No images found{% else %}Enter website URL{% endif %}
+        </div>
+        {% endif %}
+
+        <!-- Modal -->
+        <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center"
+            onclick="closeModal()">
+            <img id="modal-image" class="max-w-[90vw] max-h-[90vh] object-contain" draggable="false"
+                ondragstart="return false;">
+        </div>
+    </div>
+
+    <script>
+        let scale = 1;
+        let isDragging = false;
+        let startX, startY, scrollLeft, scrollTop;
+        const modal = document.getElementById('modal');
+        const modalImg = document.getElementById('modal-image');
+
+        function openModal(imgUrl) {
+            modalImg.src = imgUrl;
+            modal.classList.remove('hidden');
+            scale = 1;
+            modalImg.style.transform = `scale(${scale})`;
+            modalImg.classList.remove('zoomed');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Zoom with mouse wheel
+        modal.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const delta = e.deltaY > 0 ? 0.9 : 1.1;
+            scale = Math.max(0.5, Math.min(scale * delta, 3));
+
+            modalImg.style.transform = `scale(${scale})`;
+            if (scale > 1) {
+                modalImg.classList.add('zoomed');
+            } else {
+                modalImg.classList.remove('zoomed');
+            }
+        });
+
+        // Drag when zoomed
+        modalImg.addEventListener('mousedown', (e) => {
+            if (scale <= 1) return;
+            isDragging = true;
+            startX = e.clientX;
+            startY = e.clientY;
+            modalImg.style.cursor = 'grabbing';
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+
+            modalImg.style.left = `${dx}px`;
+            modalImg.style.top = `${dy}px`;
+            modalImg.style.position = 'relative';
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+            if (scale > 1) {
+                modalImg.style.cursor = 'grab';
+            }
+        });
+    </script>
+</body>
+
+</html>
