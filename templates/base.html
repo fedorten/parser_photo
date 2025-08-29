@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Image Parser{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen p-4">
+    <div class="max-w-6xl mx-auto">
+        <!-- Header with theme toggle -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold">{% block header_title %}Image Parser{% endblock %}</h1>
+            <div class="flex items-center gap-2">
+                <span class="text-sm hidden sm:inline"></span>
+                <label class="theme-toggle">
+                    <input type="checkbox" id="theme-toggle">
+                    <span class="theme-slider">
+                        <span class="theme-icon sun-icon">☀️</span>
+                        <span class="theme-icon moon-icon">🌙</span>
+                    </span>
+                </label>
+            </div>
+        </div>
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+
+</html>
+
