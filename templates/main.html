@@ -1,8 +1,23 @@
 {% extends "base.html" %}
 
+{% block breadcrumbs %}
+{% if request.method == 'POST' and images %}
+<li><span class="text-gray-400">/</span></li>
+<li><span class="text-gray-700 dark:text-gray-300">Результаты поиска</span></li>
+{% endif %}
+{% endblock %}
+
 {% block content %}
-{% include 'components/search_form.html' %}
-{% include 'components/loading_spinner.html' %}
-{% include 'components/results.html' %}
+<main>
+    <section aria-label="Поиск изображений">
+        {% include 'components/search_form.html' %}
+    </section>
+
+    <section aria-label="Результаты поиска">
+        {% include 'components/loading_spinner.html' %}
+        {% include 'components/results.html' %}
+    </section>
+</main>
+
 {% include 'components/modal.html' %}
 {% endblock %}

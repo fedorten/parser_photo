@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+
+{% block title %}О проекте - Image Parser{% endblock %}
+{% block description %}Узнайте больше о проекте Image Parser - парсере изображений с сайтов. История создания, возможности и планы развития.{% endblock %}
+{% block keywords %}о проекте, история создания, возможности, планы развития, парсер изображений{% endblock %}
+
+{% block breadcrumbs %}
+    <li><span class="text-gray-400">/</span></li>
+    <li><span class="text-gray-700 dark:text-gray-300">О проекте</span></li>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <!-- Hero Section -->
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            О проекте Image Parser
+        </h1>
+        <p class="text-xl text-gray-600 dark:text-gray-400">
+            Инновационный инструмент для быстрого поиска и скачивания изображений
+        </p>
+    </div>
+
+    <!-- Mission -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8 mb-8">
+        <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+            🎯 Наша миссия
+        </h2>
+        <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+            Сделать процесс поиска и скачивания изображений с веб-сайтов максимально простым, 
+            быстрым и удобным для всех пользователей. Мы стремимся создать инструмент, 
+            который экономит время и упрощает работу с визуальным контентом.
+        </p>
+    </div>
+
+    <!-- Features Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+            <div class="text-3xl mb-4">⚡</div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                Быстродействие
+            </h3>
+            <p class="text-gray-600 dark:text-gray-400">
+                Оптимизированные алгоритмы парсинга обеспечивают мгновенный поиск изображений
+            </p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+            <div class="text-3xl mb-4">🔍</div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                Точность поиска
+            </h3>
+            <p class="text-gray-600 dark:text-gray-400">
+                Находим все доступные изображения с учетом различных форматов и размеров
+            </p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+            <div class="text-3xl mb-4">📱</div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                Адаптивность
+            </h3>
+            <p class="text-gray-600 dark:text-gray-400">
+                Полностью адаптивный интерфейс для работы на любых устройствах
+            </p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6">
+            <div class="text-3xl mb-4">🌙</div>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                Темная тема
+            </h3>
+            <p class="text-gray-600 dark:text-gray-400">
+                Поддержка светлой и темной темы для комфортной работы в любое время
+            </p>
+        </div>
+    </div>
+
+    <!-- How It Works -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8 mb-8">
+        <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
+            🚀 Как это работает
+        </h2>
+        <div class="space-y-6">
+            <div class="flex items-start space-x-4">
+                <div class="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-full w-8 h-8 flex items-center justify-center font-semibold text-sm">
+                    1
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-900 dark:text-white mb-1">
+                        Введите URL сайта
+                    </h4>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Просто скопируйте и вставьте адрес любого веб-сайта в поле поиска
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+                <div class="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-full w-8 h-8 flex items-center justify-center font-semibold text-sm">
+                    2
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-900 dark:text-white mb-1">
+                        Настройте параметры
+                    </h4>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Укажите максимальное количество изображений для поиска (от 1 до 100)
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+                <div class="bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 rounded-full w-8 h-8 flex items-center justify-center font-semibold text-sm">
+                    3
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-900 dark:text-white mb-1">
+                        Получите результаты
+                    </h4>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Просматривайте найденные изображения в удобной сетке с возможностью увеличения
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Technology Stack -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8 mb-8">
+        <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
+            🛠️ Технологии
+        </h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="text-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                <div class="text-2xl mb-2">🐍</div>
+                <div class="font-semibold text-gray-900 dark:text-white">Python</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Backend</div>
+            </div>
+            <div class="text-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                <div class="text-2xl mb-2">⚡</div>
+                <div class="font-semibold text-gray-900 dark:text-white">Flask</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Web Framework</div>
+            </div>
+            <div class="text-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                <div class="text-2xl mb-2">🎨</div>
+                <div class="font-semibold text-gray-900 dark:text-white">Tailwind CSS</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Styling</div>
+            </div>
+            <div class="text-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                <div class="text-2xl mb-2">🔍</div>
+                <div class="font-semibold text-gray-900 dark:text-white">BeautifulSoup</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Parsing</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Future Plans -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8 mb-8">
+        <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-6">
+            🔮 Планы развития
+        </h2>
+        <div class="space-y-4">
+            <div class="flex items-center space-x-3">
+                <div class="text-green-500">✓</div>
+                <span class="text-gray-600 dark:text-gray-400">API для разработчиков</span>
+            </div>
+            <div class="flex items-center space-x-3">
+                <div class="text-green-500">✓</div>
+                <span class="text-gray-600 dark:text-gray-400">Пакетное скачивание</span>
+            </div>
+            <div class="flex items-center space-x-3">
+                <div class="text-green-500">✓</div>
+                <span class="text-gray-600 dark:text-gray-400">Фильтры по размеру и формату</span>
+            </div>
+            <div class="flex items-center space-x-3">
+                <div class="text-blue-500">🔄</div>
+                <span class="text-gray-600 dark:text-gray-400">Расширение для браузера</span>
+            </div>
+            <div class="flex items-center space-x-3">
+                <div class="text-blue-500">🔄</div>
+                <span class="text-gray-600 dark:text-gray-400">Мобильное приложение</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact CTA -->
+    <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl shadow-md p-8 text-center text-white">
+        <h2 class="text-2xl font-semibold mb-4">
+            Есть идеи для улучшения?
+        </h2>
+        <p class="text-blue-100 mb-6">
+            Подписывайтесь на канал разработчика и делитесь идеями!
+        </p>
+        <a href="https://t.me/backend_laba" target="_blank" rel="noopener noreferrer"
+           class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center justify-center mx-auto">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18 1.897-.962 6.502-1.359 8.627-.168.9-.5 1.201-.82 1.23-.697.064-1.226-.461-1.901-.903-1.056-.692-1.653-1.123-2.678-1.799-1.185-.781-.417-1.21.258-1.911.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.139-5.062 3.345-.48.329-.913.489-1.302.481-.428-.008-1.252-.241-1.865-.44-.752-.244-1.349-.374-1.297-.789.027-.216.324-.437.893-.663 3.498-1.524 5.831-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635.099-.002.321.023.465.178.164.172.213.421.227.591-.001.187-.033.321-.117.461z"/>
+            </svg>
+            Подписаться на @backend_laba
+        </a>
+    </div>
+</div>
+{% endblock %}

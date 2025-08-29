@@ -4,7 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Image Parser{% endblock %}</title>
+
+    <!-- SEO Meta -->
+    <meta name="description"
+        content="{% block description %}Парсер изображений с сайтов - быстро находите и скачивайте изображения{% endblock %}">
+    <meta name="keywords"
+        content="{% block keywords %}парсер изображений, скачать картинки, поиск изображений, парсинг сайтов{% endblock %}">
+    <meta name="author" content="Image Parser">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="{% block og_title %}Image Parser - Парсер изображений{% endblock %}">
+    <meta property="og:description"
+        content="{% block og_description %}Быстрый поиск и скачивание изображений с любых сайтов{% endblock %}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.url }}">
+    <meta property="og:site_name" content="Image Parser">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}Image Parser{% endblock %}">
+    <meta name="twitter:description"
+        content="{% block twitter_description %}Быстрый поиск и скачивание изображений с любых сайтов{% endblock %}">
+
+    <title>{% block title %}ParserPhoto - Парсер изображений{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -13,6 +36,28 @@
     </script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     {% block extra_css %}{% endblock %}
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "ParserPhoto",
+      "description": "Парсер изображений с сайтов - быстро находите и скачивайте изображения",
+      "url": "{{ request.url_root }}",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "Backend_laba"
+      }
+    }
+    </script>
 </head>
 
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen p-4">
@@ -32,12 +77,44 @@
             </div>
         </div>
 
+        <!-- Breadcrumbs -->
+        <nav aria-label="Хлебные крошки" class="mb-4">
+            <ol class="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400">
+                <li><a href="/" class="text-blue-600 hover:underline transition-colors">Главная</a></li>
+                {% block breadcrumbs %}{% endblock %}
+            </ol>
+        </nav>
+
         {% block content %}{% endblock %}
     </div>
+
+    <!-- Footer -->
+    <footer class="mt-16 border-t border-gray-200 dark:border-gray-700">
+        <div class="max-w-6xl mx-auto py-8 px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- About -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white">ParserPhoto</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">
+                        Быстрый и удобный инструмент для поиска и скачивания изображений с любых сайтов.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4 text-gray-900 dark:text-white"><a href="/about">О
+                            проекте</a></h3>
+
+                    <div class="border-t border-gray-200 dark:border-gray-700 mt-20 pt-20 text-center">
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">
+                            © 2025 ParserPhoto. Все права защищены.
+                        </p>
+                    </div>
+                </div>
+    </footer>
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     {% block extra_js %}{% endblock %}
 </body>
 
 </html>
-

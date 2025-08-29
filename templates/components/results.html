@@ -5,9 +5,12 @@
     {% for image_url in images %}
     <div class="card image-card bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition"
         data-image-url="{{ image_url }}" data-image-index="{{ loop.index0 }}">
-        <img src="{{ image_url }}" alt="Preview"
-            onerror="this.src='https://via.placeholder.com/300x200?text=Error'"
-            class="w-full h-40 object-contain bg-gray-50 dark:bg-gray-700">
+        <img src="{{ image_url }}" 
+             alt="Изображение {{ loop.index }} с сайта - {{ request.form.url if request.form.url else 'неизвестный сайт' }}"
+             loading="lazy"
+             decoding="async"
+             onerror="this.src='https://via.placeholder.com/300x200?text=Error'"
+             class="w-full h-40 object-contain bg-gray-50 dark:bg-gray-700">
     </div>
     {% endfor %}
 </div>
