@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse
+import os
 
 app = Flask(__name__)
 
@@ -64,4 +65,4 @@ def index():
     return render_template('main.html', images=images)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=False)
