@@ -1,4 +1,4 @@
-#!/home/fedor/Desktop/Flask_Project/venv/bin/python
+#!/home/fedor/Desktop/parser_photo/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

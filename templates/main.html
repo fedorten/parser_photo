@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Parser</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
     <style>
         #modal img {
             transition: transform 0.2s ease;
@@ -16,53 +21,251 @@
         #modal img.zoomed {
             cursor: grab;
         }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #4B5563;
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 14px;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .theme-toggle {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+
+        .theme-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .theme-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #4F46E5;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .theme-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.theme-slider {
+            background-color: #1E293B;
+        }
+
+        input:checked+.theme-slider:before {
+            transform: translateX(30px);
+        }
+
+        .theme-icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            color: white;
+        }
+
+        .sun-icon {
+            left: 8px;
+            display: none;
+        }
+
+        .moon-icon {
+            right: 8px;
+        }
+
+        .dark .sun-icon {
+            display: block;
+        }
+
+        .dark .moon-icon {
+            display: none;
+        }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
 
-<body class="bg-gray-100 p-4">
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen p-4">
     <div class="max-w-6xl mx-auto">
-        <!-- Search Form -->
-        <div class="bg-white rounded-lg shadow p-6 mb-6">
-            <h1 class="text-2xl font-bold text-center mb-4">Image Parser</h1>
-            <form method="POST" class="flex gap-3">
-                <input type="url" name="url" placeholder="Enter website URL" required class="flex-1 p-2 border rounded"
-                    value="{{ request.form.url if request.method == 'POST' }}">
-                <input type="number" name="max_images" min="1" max="100" value="20" required
-                    class="w-20 p-2 border rounded">
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-                    Search
-                </button>
-            </form>
+        <!-- Header with theme toggle -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold">Image Parser</h1>
+            <div class="flex items-center gap-2">
+                <span class="text-sm hidden sm:inline"></span>
+                <label class="theme-toggle">
+                    <input type="checkbox" id="theme-toggle">
+                    <span class="theme-slider">
+                        <span class="theme-icon sun-icon">☀️</span>
+                        <span class="theme-icon moon-icon">🌙</span>
+                    </span>
+                </label>
+            </div>
         </div>
 
+        <!-- Search Form -->
+        <div class="card bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6">
+            <form method="POST" class="flex flex-col sm:flex-row gap-3">
+                <input type="url" name="url" placeholder="Введите URL сайта" required
+                    class="flex-1 p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    value="{{ request.form.url if request.method == 'POST' }}">
+                <div class="flex gap-3">
+                    <div class="flex flex-col">
+                        <label for="max_images" class="text-sm mb-1 flex items-center">
+                            Кол-во изображений
+                            <span class="tooltip ml-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span class="tooltiptext">Максимальное количество изображений для поиска (от 1 до
+                                    100)</span>
+                            </span>
+                        </label>
+                        <input type="number" id="max_images" name="max_images" min="1" max="100" value="20" required
+                            class="w-24 p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                    </div>
+                    <button type="submit"
+                        class="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap self-end">
+                        Поиск
+                    </button>
+                </div>
+            </form>
+        </div>
+        <!-- Loading Spinner -->
+        <div id="loading-spinner"
+            class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+            <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-white"></div>
+        </div>
         <!-- Results -->
         {% if images %}
-        <div class="mb-4">Found: {{ images|length }} images</div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <div class="mb-4 text-lg font-medium">Найдено изображений: {{ images|length }}</div>
+        <div class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {% for image_url in images %}
-            <div class="bg-white rounded-lg shadow overflow-hidden cursor-pointer hover:shadow-lg transition"
+            <div class="card bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition"
                 onclick="openModal('{{ image_url }}')">
                 <img src="{{ image_url }}" alt="Preview"
                     onerror="this.src='https://via.placeholder.com/300x200?text=Error'"
-                    class="w-full h-48 object-contain bg-gray-50">
+                    class="w-full h-40 object-contain bg-gray-50 dark:bg-gray-700">
             </div>
             {% endfor %}
         </div>
         {% else %}
-        <div class="text-center py-10 text-gray-500">
-            {% if request.method == 'POST' %}No images found{% else %}Enter website URL{% endif %}
+        <div class="text-center py-10 text-gray-500 dark:text-gray-400">
+            {% if request.method == 'POST' %}Изображения не найдены{% else %}Введите URL сайта для поиска изображений{%
+            endif %}
         </div>
         {% endif %}
 
         <!-- Modal -->
-        <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center"
+        <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center p-4"
             onclick="closeModal()">
-            <img id="modal-image" class="max-w-[90vw] max-h-[90vh] object-contain" draggable="false"
+            <img id="modal-image" class="max-w-[95vw] max-h-[95vh] object-contain" draggable="false"
                 ondragstart="return false;">
         </div>
     </div>
 
     <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        const currentTheme = localStorage.getItem('theme');
+        // Spinner functionality
+        const loadingSpinner = document.getElementById('loading-spinner');
+        const searchForm = document.querySelector('form');
+
+        searchForm.addEventListener('submit', function () {
+            // Показываем спиннер при отправке формы
+            loadingSpinner.classList.remove('hidden');
+
+            // Скрываем результаты если они есть
+            const results = document.querySelector('.grid');
+            if (results) {
+                results.classList.add('hidden');
+            }
+        });
+
+        // Скрываем спиннер когда страница полностью загружена
+        window.addEventListener('load', function () {
+            loadingSpinner.classList.add('hidden');
+        });
+
+        // Также можно скрыть спиннер если произошла ошибка
+        window.addEventListener('error', function () {
+            loadingSpinner.classList.add('hidden');
+        });
+        if (currentTheme === 'light') {
+            document.documentElement.classList.remove('dark');
+            themeToggle.checked = false;
+        } else {
+            document.documentElement.classList.add('dark');
+            themeToggle.checked = true;
+            localStorage.setItem('theme', 'dark');
+        }
+
+        // Toggle theme on button click
+        themeToggle.addEventListener('change', function () {
+            if (this.checked) {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Modal functionality
         let scale = 1;
         let isDragging = false;
         let startX, startY, scrollLeft, scrollTop;
@@ -75,6 +278,8 @@
             scale = 1;
             modalImg.style.transform = `scale(${scale})`;
             modalImg.classList.remove('zoomed');
+            modalImg.style.left = '0';
+            modalImg.style.top = '0';
             document.body.style.overflow = 'hidden';
         }
 
@@ -82,6 +287,13 @@
             modal.classList.add('hidden');
             document.body.style.overflow = 'auto';
         }
+
+        // Close modal on ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
 
         // Zoom with mouse wheel
         modal.addEventListener('wheel', (e) => {
@@ -94,6 +306,8 @@
                 modalImg.classList.add('zoomed');
             } else {
                 modalImg.classList.remove('zoomed');
+                modalImg.style.left = '0';
+                modalImg.style.top = '0';
             }
         });
 
@@ -101,8 +315,8 @@
         modalImg.addEventListener('mousedown', (e) => {
             if (scale <= 1) return;
             isDragging = true;
-            startX = e.clientX;
-            startY = e.clientY;
+            startX = e.clientX - modalImg.offsetLeft;
+            startY = e.clientY - modalImg.offsetTop;
             modalImg.style.cursor = 'grabbing';
         });
 
@@ -110,12 +324,11 @@
             if (!isDragging) return;
             e.preventDefault();
 
-            const dx = e.clientX - startX;
-            const dy = e.clientY - startY;
+            const x = e.clientX - startX;
+            const y = e.clientY - startY;
 
-            modalImg.style.left = `${dx}px`;
-            modalImg.style.top = `${dy}px`;
-            modalImg.style.position = 'relative';
+            modalImg.style.left = `${x}px`;
+            modalImg.style.top = `${y}px`;
         });
 
         window.addEventListener('mouseup', () => {
@@ -123,6 +336,47 @@
             if (scale > 1) {
                 modalImg.style.cursor = 'grab';
             }
+        });
+
+        // Touch events for mobile
+        let initialDistance = null;
+
+        modal.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 2) {
+                e.preventDefault();
+                initialDistance = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY
+                );
+            }
+        });
+
+        modal.addEventListener('touchmove', (e) => {
+            if (e.touches.length === 2) {
+                e.preventDefault();
+                const currentDistance = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY
+                );
+
+                if (initialDistance) {
+                    const delta = currentDistance / initialDistance;
+                    scale = Math.max(0.5, Math.min(scale * delta, 3));
+                    modalImg.style.transform = `scale(${scale})`;
+
+                    if (scale > 1) {
+                        modalImg.classList.add('zoomed');
+                    } else {
+                        modalImg.classList.remove('zoomed');
+                    }
+
+                    initialDistance = currentDistance;
+                }
+            }
+        });
+
+        modal.addEventListener('touchend', () => {
+            initialDistance = null;
         });
     </script>
 </body>
