@@ -73,6 +73,18 @@ button {
     height: 0;
 }
 
+#clear-search {
+    transition: opacity 0.2s ease;
+}
+
+#clear-search:hover {
+    opacity: 0.7;
+}
+
+#clear-search:focus {
+    outline: none;
+}
+
 .theme-slider {
     position: absolute;
     cursor: pointer;

@@ -10,20 +10,25 @@
         content="{% block description %}Парсер изображений с сайтов - быстро находите и скачивайте изображения{% endblock %}">
     <meta name="keywords"
         content="{% block keywords %}парсер изображений, скачать картинки, поиск изображений, парсинг сайтов{% endblock %}">
-    <meta name="author" content="Image Parser">
+    <meta name="author" content="ParserPhoto">
     <meta name="robots" content="index, follow">
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="{% block og_title %}Image Parser - Парсер изображений{% endblock %}">
-    <meta property="og:description"
-        content="{% block og_description %}Быстрый поиск и скачивание изображений с любых сайтов{% endblock %}">
+    <!-- Open Graph / Социальные сети -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ request.url }}">
-    <meta property="og:site_name" content="Image Parser">
+    <meta property="og:url" content="https://parserphoto-production.up.railway.app/">
+    <meta property="og:site_name" content="ParserPhoto">
+
+    <meta property="og:title" content="ParserPhoto - Ваш мощный инструмент для парсинга изображений">
+    <meta property="og:description"
+        content="Находите, анализируйте и скачивайте изображения с различных источников легко и быстро.">
+    <meta property="og:image"
+        content="https://wp-s.ru/wallpapers/0/69/533009940136109/ocharovatelnyj-kotenok-smotrit-v-lupu.jpg">
+    <meta property="og:locale" content="ru_RU">
+
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{% block twitter_title %}Image Parser{% endblock %}">
+    <meta name="twitter:title" content="{% block twitter_title %}ParserPhoto{% endblock %}">
     <meta name="twitter:description"
         content="{% block twitter_description %}Быстрый поиск и скачивание изображений с любых сайтов{% endblock %}">
 
@@ -64,7 +69,7 @@
     <div class="max-w-6xl mx-auto">
         <!-- Header with theme toggle -->
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-2xl font-bold">{% block header_title %}Image Parser{% endblock %}</h1>
+            <h1 class="text-2xl font-bold">{% block header_title %}ParserPhoto{% endblock %}</h1>
             <div class="flex items-center gap-2">
                 <span class="text-sm hidden sm:inline"></span>
                 <label class="theme-toggle">
