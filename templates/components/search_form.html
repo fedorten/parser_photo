@@ -1,7 +1,7 @@
 <!-- Search Form -->
 <div class="card bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-6">
-    <form method="POST" class="flex flex-col sm:flex-row gap-3 items-end">
-        <div class="flex-1 relative">
+    <form method="POST" class="flex flex-col sm:flex-row gap-4 items-stretch sm:items-end">
+        <div class="flex-1 min-w-0">
             <label for="url-input" class="text-sm mb-1 block text-gray-700 dark:text-gray-300">URL сайта</label>
             <div class="relative">
                 <input type="url" name="url" id="url-input" placeholder="Введите URL сайта" required
@@ -33,11 +33,11 @@
                 </span>
             </label>
             <input type="number" id="max_images" name="max_images" min="1" max="100" value="20" required
-                class="w-24 p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
         </div>
 
         <button type="submit"
-            class="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors whitespace-nowrap h-[42px]">
+            class="bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors whitespace-nowrap h-[42px] mt-2 sm:mt-0">
             Поиск
         </button>
     </form>
